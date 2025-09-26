@@ -4,7 +4,7 @@ from menuMain import Menu
 
 pygame.init() # Initialsion of all pygame functions so errors do not occur.
 
-width, height = 2880, 1620 # The default width and height of the widnow which can be changed in the settings
+# width, height = 2880, 1620 # The default width and height of the widnow which can be changed in the settings
 width, height = 960, 540 # The default width and height of the widnow which can be changed in the settings
 FPS = 60 # Constant value for the fps so that it never changes.
 logo = pygame.image.load("images/logo.png") # loading the logo image from the images folder
