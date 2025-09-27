@@ -1,11 +1,12 @@
 import pygame
+from colours import Colours
 from objects.button import Button
 
 def draw_objects(window, width, height, font):
     # Initiating all properties of each button for the main menu
-    play = Button(font, "Play", (112, 137, 156), "white", 20, 30, 400, 80, "white", (180, 103, 120))
-    settings = Button(font, "Settings", (112, 137, 156), "white",  20, 150, 400, 80, "white", (180, 103, 120))
-    quit = Button(font, "Quit", (112, 137, 156), "white", 20, 330, 400, 80, "white", (180, 103, 120))
+    play = Button(font, "Play", Colours.BLUE, "white", 20, 30, 400, 80, "white", Colours.GREY)
+    settings = Button(font, "Settings", Colours.BLUE, "white",  20, 150, 400, 80, "white", Colours.GREY)
+    quit = Button(font, "Quit", Colours.BLUE, "white", 20, 330, 400, 80, "white", Colours.GREY)
 
     play.draw_button(window)
     settings.draw_button(window)
@@ -14,17 +15,16 @@ def draw_objects(window, width, height, font):
     return play, settings, quit
 
 class Menu:
-    def __init__(self, window, GameStateManager, width, height):
+    def __init__(self, window, GameStateManager, width, height, font):
         self.window = window
         self.GameStateManager = GameStateManager
         self.width = width
         self.height = height
+        self.font = font
         
-    def run(self):
-        font = pygame.font.SysFont("Calibri", 60, True) # Font for text and buttons
-        
-        self.window.fill((23, 27, 32)) # Background colour of the program
-        self.play_button, self.settings_button, self.quit_button = draw_objects(self.window, self.width, self.height, font)
+    def run(self):        
+        self.window.fill(Colours.LIGHTGREY) # Background colour of the program and cover up old objects
+        self.play_button, self.settings_button, self.quit_button = draw_objects(self.window, self.width, self.height, self.font)
         
         pos = pygame.mouse.get_pos()
 
@@ -44,7 +44,5 @@ class Menu:
             exit()
         elif self.settings_button.rect.collidepoint(pos):
             self.GameStateManager.set_state("menuSettings")
-            print("Entering Settings Menu")
         elif self.play_button.rect.collidepoint(pos):
             self.GameStateManager.set_state("menuPlay")
-            print("Entering Play Menu")

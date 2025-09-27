@@ -1,6 +1,7 @@
 import pygame
 from gameStateManager import GameStateManager
 from menuMain import Menu
+from menuSettings import Settings
 
 pygame.init() # Initialsion of all pygame functions so errors do not occur.
 
@@ -8,17 +9,19 @@ pygame.init() # Initialsion of all pygame functions so errors do not occur.
 width, height = 960, 540 # The default width and height of the widnow which can be changed in the settings
 FPS = 60 # Constant value for the fps so that it never changes.
 logo = pygame.image.load("images/logo.png") # loading the logo image from the images folder
+font = pygame.font.SysFont("Calibri", 60, True) # Font for text and buttons
 
 class Program: # Main class from where the program will run once called upon
     def __init__(self): # Setting the attributes of the class 
-         self.window = pygame.display.set_mode((width, height)) ### pygame.FULLSCREEN ### # Creating the main program window with the associated width and height and making it by default full screen.
-         pygame.display.set_caption("Maze Craze") # Naming the window
+         self.window = pygame.display.set_mode((width, height), pygame.RESIZABLE) ### pygame.FULLSCREEN ### # Creating the main program window with the associated width and height and making it by default full screen.
+         pygame.display.set_caption("Maze Craze") #5 Naming the window
          pygame.display.set_icon(logo) # Adding a custom maze image for the window
          self.clock = pygame.time.Clock() # Set a tick rate which will be used to maintain fps
          
          self.GameStateManager = GameStateManager("menuMain") # Set the default program state to menuMain
          
-         self.menuMain = Menu(self.window, self.GameStateManager, width, height)
+         self.menuMain = Menu(self.window, self.GameStateManager, width, height, font)
+         self.menuSettings = Settings(self.window, self.GameStateManager, width, height, font)
          
     def run(self): # Called to run the program
         while True: # The game loop, once ended stops the program and keeps checking for state changes
@@ -31,9 +34,13 @@ class Program: # Main class from where the program will run once called upon
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if current_state == "menuMain":
                         self.menuMain.click(event.pos)
+                    elif current_state == "menuSettings":
+                        self.menuSettings.click()
                     
             if current_state == "menuMain":
                 self.menuMain.run()
+            elif current_state == "menuSettings":
+                self.menuSettings.run()
                 
             pygame.display.update()
             self.clock.tick(FPS) # Setting the tick rate to the amount of frames per second (60) for the program to check for changes

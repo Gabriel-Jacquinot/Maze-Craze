@@ -19,7 +19,32 @@ class Button: # class that can be accessed to make any new button
         if self.rect.collidepoint(pos):
             self.bgColour = self.hoverColour
         else:
-            self.bgColour = self.bgColour 
+            self.bgColour = self.bgColour
+            
+class ButtonImg: # Class for creating a new button that is an image
+    def __init__(self, img, x, y, hoverImg):
+        self.img = pygame.image.load(f"images/{img}") # Regular image when not hovered 
+        self.hoverImg = pygame.image.load(f"images/{hoverImg}") # Image when hovered
+        self.imgMask = pygame.mask.from_surface(self.img)
+        self.imgHoverMask = pygame.mask.from_surface(self.hoverImg)
+        self.x = x
+        self.y = y
+    
+    def draw_image(self, window):
+        window.blit(self.img, (self.x, self.y))
         
-        
-        
+    def img_hover(self, pos, window):
+        imgRect = self.img.get_rect(topleft=(self.x, self.y))
+        x = pos[0] - self.x
+        y = pos[1] - self.y
+        if 0 <= x < imgRect.width and 0 <= y < imgRect.height:
+            if self.imgMask.get_at((x, y)):
+                self.img = self.hoverImg
+                
+    def img_click(self, pos):
+        imgRect = self.img.get_rect(topleft=(self.x, self.y))
+        x = pos[0] - self.x
+        y = pos[1] - self.y
+        if 0 <= x < imgRect.width and 0 <= y < imgRect.height:
+            if self.imgMask.get_at((x, y)):
+                return True
