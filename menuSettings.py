@@ -1,13 +1,19 @@
 import pygame
 from colours import Colours
-from objects.button import Button, ButtonImg 
+from objects.button import Button, ButtonImg
+from objects.box import draw_box
+from scale import size, pos
 
 def draw_objects(window, width, height):
-    back = ButtonImg("back1.png", 20, 30, "back2.png")
+    draw_box(window, 50, 50, 100, 56.3, 15, Colours.LIGHTGREY, Colours.GREY, width, height)
+    
+    back_w, back_h = size(width, height, 10, 10)
+    back_x, back_y = pos(width, height, 8, 13, back_w, back_h)
+    back = ButtonImg("back1.png", back_x, back_y, "back2.png",  back_w, back_h)
     # resolution = Slider(font, "Play", (112, 137, 156), "white", 20, 30, 400, 80, "white", (180, 103, 120))
     #  = Button(font, "Settings", (112, 137, 156), "white",  20, 150, 400, 80, "white", (180, 103, 120))
 
-    back.draw_image(window)
+    back.draw_image(window, width, height)
     
     return back
 
@@ -20,14 +26,13 @@ class Settings:
         self.font = font
         
     def run(self):
-        self.window.fill(Colours.LIGHTGREY) # Cover up old objects
         self.back_button = draw_objects(self.window, self.width, self.height)
         
         pos = pygame.mouse.get_pos()
         
         self.back_button.img_hover(pos, self.window)
         
-        self.back_button.draw_image(self.window)
+        self.back_button.draw_image(self.window, self.width, self.height)
         
         self.clicked = self.back_button.img_click(pos)
         

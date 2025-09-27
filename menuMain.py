@@ -1,16 +1,38 @@
 import pygame
 from colours import Colours
 from objects.button import Button
+from objects.image import Image
+from scale import pos, size
+from objects.box import draw_box
+from objects.text import draw_text
 
 def draw_objects(window, width, height, font):
+    draw_box(window, 50, 50, 100, 56.3, 15, Colours.LIGHTGREY, Colours.GREY, width, height)
+    draw_text(window, "Maze Craze", Colours.GREY, font, 20, 25, width, height)
+    
     # Initiating all properties of each button for the main menu
-    play = Button(font, "Play", Colours.BLUE, "white", 20, 30, 400, 80, "white", Colours.GREY)
-    settings = Button(font, "Settings", Colours.BLUE, "white",  20, 150, 400, 80, "white", Colours.GREY)
-    quit = Button(font, "Quit", Colours.BLUE, "white", 20, 330, 400, 80, "white", Colours.GREY)
+    play_w, play_h = size(width, height, 9, 5.5)
+    play_x, play_y = pos(width, height, 14.8, 38, play_w, play_h)
+    play = Button(font, "Play", Colours.BLUE, "white", play_x, play_y , play_w, play_h, Colours.GREY, Colours.GREY)
+    
+    settings_w, settings_h = size(width, height, 16, 5.5)
+    settings_x, plasettings_y = pos(width, height, 18.3, 50, settings_w, settings_h)
+    settings = Button(font, "Settings", Colours.BLUE, "white", settings_x, plasettings_y, settings_w, settings_h, Colours.GREY, Colours.GREY)
+    
+    quit_w, quit_h = size(width, height, 9.5, 5.5)
+    quit_x, quit_y = pos(width, height, 15, 62, quit_w, quit_h)
+    quit = Button(font, "Quit", Colours.BLUE, "white", quit_x, quit_y, quit_w, quit_h, Colours.GREY, Colours.GREY)
+    
+    menuImg_w, menuImg_h = size(width, height, 50, 50)
+    menuImg_x, menuImg_y = pos(width, height, 70, 50, menuImg_w, menuImg_h)
+    menuImg = Image("logo.png", menuImg_x, menuImg_y, menuImg_w, menuImg_h) # Initiating all the properties for the main menu image
 
-    play.draw_button(window)
+    # Make the buttons by blitting them to the window
+    play.draw_button(window) 
     settings.draw_button(window)
     quit.draw_button(window)
+    
+    menuImg.draw_image(window) # Blit the image to the window
     
     return play, settings, quit
 
@@ -22,8 +44,7 @@ class Menu:
         self.height = height
         self.font = font
         
-    def run(self):        
-        self.window.fill(Colours.LIGHTGREY) # Background colour of the program and cover up old objects
+    def run(self):
         self.play_button, self.settings_button, self.quit_button = draw_objects(self.window, self.width, self.height, self.font)
         
         pos = pygame.mouse.get_pos()
@@ -39,10 +60,10 @@ class Menu:
         self.quit_button.draw_button(self.window)
         
     def click(self, pos):
-        if self.quit_button.rect.collidepoint(pos):
-            pygame.quit()
-            exit()
-        elif self.settings_button.rect.collidepoint(pos):
-            self.GameStateManager.set_state("menuSettings")
-        elif self.play_button.rect.collidepoint(pos):
-            self.GameStateManager.set_state("menuPlay")
+            if self.quit_button.rect.collidepoint(pos):
+                pygame.quit()
+                exit()
+            elif self.settings_button.rect.collidepoint(pos):
+                self.GameStateManager.set_state("menuSettings")
+            elif self.play_button.rect.collidepoint(pos):
+                self.GameStateManager.set_state("menuPlay")
