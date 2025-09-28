@@ -1,23 +1,26 @@
 import pygame
-from colours import Colours
-from objects.button import Button, ButtonImg
-from objects.box import draw_box
-from scale import size, pos
+from Tools.colours import Colours
+from Objects.button import Button, ButtonImg
+from Objects.box import draw_box
+from Tools.scale import size, pos
 
-def draw_objects(window, width, height):
+
+pygame.mixer.init()
+
+clickSFX = pygame.mixer.Sound("SFX/clickSFX.wav")
+
+def draw_objects(window, width, height, font):
     draw_box(window, 50, 50, 100, 56.3, 15, Colours.LIGHTGREY, Colours.GREY, width, height)
     
     back_w, back_h = size(width, height, 10, 10)
     back_x, back_y = pos(width, height, 8, 13, back_w, back_h)
     back = ButtonImg("back1.png", back_x, back_y, "back2.png",  back_w, back_h)
-    # resolution = Slider(font, "Play", (112, 137, 156), "white", 20, 30, 400, 80, "white", (180, 103, 120))
-    #  = Button(font, "Settings", (112, 137, 156), "white",  20, 150, 400, 80, "white", (180, 103, 120))
 
     back.draw_image(window, width, height)
     
     return back
 
-class Settings:
+class Play:
     def __init__(self, window, GameStateManager, width, height, font):
         self.window = window
         self.GameStateManager = GameStateManager
@@ -26,11 +29,11 @@ class Settings:
         self.font = font
         
     def run(self):
-        self.back_button = draw_objects(self.window, self.width, self.height)
+        self.back_button = draw_objects(self.window, self.width, self.height, self.font)
         
         pos = pygame.mouse.get_pos()
-        
-        self.back_button.img_hover(pos, self.window)
+
+        self.back_button.img_hover(pos)
         
         self.back_button.draw_image(self.window, self.width, self.height)
         
@@ -38,4 +41,5 @@ class Settings:
         
     def click(self):
         if self.clicked:
+            clickSFX.play()
             self.GameStateManager.set_state("menuMain")

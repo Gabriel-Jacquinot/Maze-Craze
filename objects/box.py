@@ -1,5 +1,5 @@
 import pygame
-from scale import size, pos
+from Tools.scale import size, pos
 
 def draw_box(window, x, y, w, h, border, colour, border_colour, width, height):
     w, h = size(width, height, w, h)

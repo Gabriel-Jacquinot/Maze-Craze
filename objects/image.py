@@ -2,7 +2,7 @@ import pygame
 
 class Image:
     def __init__(self, img, x, y, width, height):
-        self.img = pygame.transform.smoothscale(pygame.image.load(f"images/{img}").convert_alpha(), (width, height))
+        self.img = pygame.transform.smoothscale(pygame.image.load(f"Images/{img}").convert_alpha(), (width, height))
         self.x = x
         self.y = y
 

@@ -1,7 +1,6 @@
 import pygame
-from colours import Colours
-from objects.box import draw_box
-from scale import pos, size
+from Tools.colours import Colours
+from Objects.box import draw_box
 
 class Button: # class that can be accessed to make any new button
     def __init__(self, font, text, bgColour, textColour, x, y, length, width, borderColour, hoverColour): # a placehodlder for all of the parameters associated with making a new button
@@ -20,14 +19,15 @@ class Button: # class that can be accessed to make any new button
         
     def button_hover(self, pos):
         if self.rect.collidepoint(pos):
+            
             self.bgColour = self.hoverColour
         else:
             self.bgColour = self.bgColour
             
 class ButtonImg: # Class for creating a new button that is an image
     def __init__(self, img, x, y, hoverImg, w, h):
-        self.img = pygame.transform.smoothscale(pygame.image.load(f"images/{img}").convert_alpha(), (w, h)) # Regular image when not hovered 
-        self.hoverImg = pygame.transform.smoothscale(pygame.image.load(f"images/{hoverImg}").convert_alpha(), (w, h)) # Image when hovered
+        self.img = pygame.transform.smoothscale(pygame.image.load(f"Images/{img}").convert_alpha(), (w, h)) # Regular image when not hovered 
+        self.hoverImg = pygame.transform.smoothscale(pygame.image.load(f"Images/{hoverImg}").convert_alpha(), (w, h)) # Image when hovered
         self.imgMask = pygame.mask.from_surface(self.img)
         self.imgHoverMask = pygame.mask.from_surface(self.hoverImg)
         self.x = x
@@ -37,7 +37,7 @@ class ButtonImg: # Class for creating a new button that is an image
         draw_box(window, 50, 50, 100, 56.3, 15, Colours.LIGHTGREY, Colours.GREY, width, height)
         window.blit(self.img, (self.x, self.y))
         
-    def img_hover(self, pos, window):
+    def img_hover(self, pos):
         imgRect = self.img.get_rect(topleft=(self.x, self.y))
         x = pos[0] - self.x
         y = pos[1] - self.y

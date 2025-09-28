@@ -1,14 +1,15 @@
 import pygame
-from colours import Colours
-from objects.button import Button
-from objects.image import Image
-from scale import pos, size
-from objects.box import draw_box
-from objects.text import draw_text
+from Tools.colours import Colours
+from Objects.button import Button
+from Objects.image import Image
+from Tools.scale import pos, size
+from Objects.box import draw_box
+from Objects.text import draw_text
+import time
 
 def draw_objects(window, width, height, font):
     draw_box(window, 50, 50, 100, 56.3, 15, Colours.LIGHTGREY, Colours.GREY, width, height)
-    draw_text(window, "Maze Craze", Colours.GREY, font, 20, 25, width, height)
+    draw_text(window, "Maze Craze", Colours.GREY, font, 20, 23, width, height)
     
     # Initiating all properties of each button for the main menu
     play_w, play_h = size(width, height, 9, 5.5)
@@ -37,12 +38,13 @@ def draw_objects(window, width, height, font):
     return play, settings, quit
 
 class Menu:
-    def __init__(self, window, GameStateManager, width, height, font):
+    def __init__(self, window, GameStateManager, width, height, font, clickSFX):
         self.window = window
         self.GameStateManager = GameStateManager
         self.width = width
         self.height = height
         self.font = font
+        self.clickSFX = clickSFX
         
     def run(self):
         self.play_button, self.settings_button, self.quit_button = draw_objects(self.window, self.width, self.height, self.font)
@@ -60,10 +62,14 @@ class Menu:
         self.quit_button.draw_button(self.window)
         
     def click(self, pos):
-            if self.quit_button.rect.collidepoint(pos):
-                pygame.quit()
-                exit()
-            elif self.settings_button.rect.collidepoint(pos):
-                self.GameStateManager.set_state("menuSettings")
-            elif self.play_button.rect.collidepoint(pos):
-                self.GameStateManager.set_state("menuPlay")
+        if self.quit_button.rect.collidepoint(pos):
+            self.clickSFX.play()
+            time.sleep(0.22)
+            pygame.quit()
+            exit()
+        elif self.settings_button.rect.collidepoint(pos):
+            self.clickSFX.play()
+            self.GameStateManager.set_state("menuSettings")
+        elif self.play_button.rect.collidepoint(pos):
+            self.clickSFX.play()
+            self.GameStateManager.set_state("menuPlay")
