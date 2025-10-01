@@ -1,6 +1,6 @@
 import pygame
 from Tools.colours import Colours
-from Objects.button import Button, ButtonImg
+from Objects.button import ButtonImg
 from Objects.box import draw_box
 from Tools.scale import size, pos
 

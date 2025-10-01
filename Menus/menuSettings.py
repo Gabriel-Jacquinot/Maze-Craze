@@ -3,8 +3,8 @@ from Tools.colours import Colours
 from Objects.button import Button, ButtonImg
 from Objects.box import draw_box
 from Tools.scale import size, pos
-from Objects.slider import Slider
-from Objects.text import draw_text
+# from Objects.slider import Slider
+# from Objects.text import draw_text
 
 def draw_objects(window, width, height, font):
     draw_box(window, 50, 50, 100, 56.3, 15, Colours.LIGHTGREY, Colours.GREY, width, height)
@@ -15,7 +15,7 @@ def draw_objects(window, width, height, font):
     
     sound_w, sound_h = size(width, height, 25, 5.5)
     sound_x, sound_y = pos(width, height, 50, 20, sound_w, sound_h)
-    sound = Button(font, "Sound Effects", Colours.BLUE, "white", sound_x, sound_y , sound_w, sound_h, Colours.GREY, Colours.GREY)
+    sound = Button(font, "Sound Effects", Colours.BLUE, "white", sound_x, sound_y , sound_w, sound_h, Colours.GREY, Colours.GREY, 0)
     
     # SFX_w, SFX_h = size(width, height, 20, 5)
     # SFX_x, SFX_y = pos(width, height, 50, 27, SFX_w, SFX_h)

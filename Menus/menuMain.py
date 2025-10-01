@@ -14,15 +14,15 @@ def draw_objects(window, width, height, font):
     # Initiating all properties of each button for the main menu
     play_w, play_h = size(width, height, 9, 5.5)
     play_x, play_y = pos(width, height, 14.8, 38, play_w, play_h)
-    play = Button(font, "Play", Colours.BLUE, "white", play_x, play_y , play_w, play_h, Colours.GREY, Colours.GREY)
+    play = Button(font, "Play", Colours.BLUE, "white", play_x, play_y , play_w, play_h, Colours.GREY, Colours.GREY, 0)
     
     settings_w, settings_h = size(width, height, 16, 5.5)
     settings_x, plasettings_y = pos(width, height, 18.3, 50, settings_w, settings_h)
-    settings = Button(font, "Settings", Colours.BLUE, "white", settings_x, plasettings_y, settings_w, settings_h, Colours.GREY, Colours.GREY)
+    settings = Button(font, "Settings", Colours.BLUE, "white", settings_x, plasettings_y, settings_w, settings_h, Colours.GREY, Colours.GREY, 0)
     
     quit_w, quit_h = size(width, height, 9.5, 5.5)
     quit_x, quit_y = pos(width, height, 15, 62, quit_w, quit_h)
-    quit = Button(font, "Quit", Colours.BLUE, "white", quit_x, quit_y, quit_w, quit_h, Colours.GREY, Colours.GREY)
+    quit = Button(font, "Quit", Colours.BLUE, "white", quit_x, quit_y, quit_w, quit_h, Colours.GREY, Colours.GREY, 0)
     
     menuImg_w, menuImg_h = size(width, height, 50, 50)
     menuImg_x, menuImg_y = pos(width, height, 70, 50, menuImg_w, menuImg_h)

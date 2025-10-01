@@ -1,6 +1,4 @@
 import pygame
-from Tools.colours import Colours
-from Objects.box import draw_box
 
 class Slider: # class that can be accessed to make any new button
     def __init__(self, x, y, width, height, fillColour, bgColour, minValue, maxValue): # a placehodlder for all of the parameters associated with making a new button

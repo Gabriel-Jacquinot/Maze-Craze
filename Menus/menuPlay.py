@@ -14,11 +14,11 @@ def draw_objects(window, width, height, font):
 
     customise_w, customise_h = size(width, height, 20, 40)
     customise_x, customise_y = pos(width, height, 35, 50, customise_w, customise_h)
-    customise = Button(font, " Generate", Colours.BLUE, "white", customise_x, customise_y , customise_w, customise_h, Colours.GREY, Colours.GREY)
+    customise = Button(font, " Generate", Colours.BLUE, "white", customise_x, customise_y , customise_w, customise_h, Colours.GREY, Colours.GREY, 40)
     
     solve_w, solve_h = size(width, height, 20, 40)
     solve_x, solve_y = pos(width, height, 65, 50, solve_w, solve_h)
-    solve = Button(font, "    Solve", Colours.BLUE, "white", solve_x, solve_y , solve_w, solve_h, Colours.GREY, Colours.GREY)
+    solve = Button(font, "    Solve", Colours.BLUE, "white", solve_x, solve_y , solve_w, solve_h, Colours.GREY, Colours.GREY, 40)
     
     mazeImg_w, mazeImg_h = size(width, height, 19, 19)
     mazeImg_x, mazeImg_y = pos(width, height, 35, 50, mazeImg_w, mazeImg_h)
