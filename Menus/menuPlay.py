@@ -8,10 +8,17 @@ from Objects.image import Image
 def draw_objects(window, width, height, font):
     draw_box(window, 50, 50, 100, 56.3, 15, Colours.LIGHTGREY, Colours.GREY, width, height)
     
+    # Button image, image file name, button x and y position, hover image file name, button width and height
+    # Size, window width and height, object width and height
+    # Position, window width and height, object x and y position, scaled object width and height
     back_w, back_h = size(width, height, 10, 10)
     back_x, back_y = pos(width, height, 8, 13, back_w, back_h)
     back = ButtonImg("back1.png", back_x, back_y, "back2.png",  back_w, back_h)
 
+    # Initiating all properties of each button for the settings menu
+    # Button, font, background colour, text colour, button x and y position, button width and height, border colour, hover colour
+    # Size, window width and height, object width and height
+    # Position, window width and height, object x and y position, scaled object width and height
     customise_w, customise_h = size(width, height, 20, 40)
     customise_x, customise_y = pos(width, height, 35, 50, customise_w, customise_h)
     customise = Button(font, " Generate", Colours.BLUE, "white", customise_x, customise_y , customise_w, customise_h, Colours.GREY, Colours.GREY, 40)
@@ -20,6 +27,8 @@ def draw_objects(window, width, height, font):
     solve_x, solve_y = pos(width, height, 65, 50, solve_w, solve_h)
     solve = Button(font, "    Solve", Colours.BLUE, "white", solve_x, solve_y , solve_w, solve_h, Colours.GREY, Colours.GREY, 40)
     
+    # Initiating all properties of the images for the settings menu
+    # For the image, image file name, x and y position, width and height
     mazeImg_w, mazeImg_h = size(width, height, 19, 19)
     mazeImg_x, mazeImg_y = pos(width, height, 35, 50, mazeImg_w, mazeImg_h)
     mazeImg = Image("solve.png", mazeImg_x, mazeImg_y, mazeImg_w, mazeImg_h)
@@ -28,10 +37,12 @@ def draw_objects(window, width, height, font):
     solveImg_x, solveImg_y = pos(width, height, 65, 50, solveImg_w, solveImg_h)
     solveImg = Image("maze.png", solveImg_x, solveImg_y, solveImg_w, solveImg_h)
 
+    # Make the buttons by drawing them to the window
     back.draw_image(window, width, height)
     customise.draw_button(window)
     solve.draw_button(window)
     
+    # Make the images by drawing them to the window
     mazeImg.draw_image(window)
     solveImg.draw_image(window)
     

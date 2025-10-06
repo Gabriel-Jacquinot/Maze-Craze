@@ -13,7 +13,7 @@ width, height = 1645.714 / 1.25, 925.714 / 1.25 # int(wx.DisplaySize()[0]), int(
 FPS = 60 # Constant value for the fps so that it never changes
 logo = pygame.image.load("Images/logo.png") # loading the logo image from the images folder
 font = pygame.font.SysFont("Calibri", int(100 / (width/ height)), True) # Font for text and buttons
-clickSFX = pygame.mixer.Sound("SFX/clickSFX.wav") # Loading the sound effect that plays when something is clicked on
+clickSFX = pygame.mixer.Sound("SFX/clickSFX.mp3") # Loading the sound effect that plays when something is clicked on
 
 class Program: # Main class from where the program will run once called upon
     def __init__(self): # Setting the attributes of the class 
