@@ -4,16 +4,15 @@ from Tools.gameStateManager import GameStateManager
 from Menus.menuMain import Menu
 from Menus.menuSettings import Settings
 from Menus.menuPlay import Play
+from Sound.audio import Sound
 
 pygame.init() # Initialisation of all pygame functions so errors do not occur
-pygame.mixer.init() # Initialisation of all mixer functions so errors so not occur
 
 app = wx.App(False) # Initialisation of the wx library
 width, height = 1645.714 / 1.25, 925.714 / 1.25 # int(wx.DisplaySize()[0]), int(wx.DisplaySize()[1]) # Taking the native resolution of the users computer # The default width and height of the window which can be changed in the settings
 FPS = 60 # Constant value for the fps so that it never changes
 logo = pygame.image.load("Images/logo.png") # loading the logo image from the images folder
 font = pygame.font.SysFont("Calibri", int(100 / (width/ height)), True) # Font for text and buttons
-clickSFX = pygame.mixer.Sound("SFX/clickSFX.mp3") # Loading the sound effect that plays when something is clicked on
 
 class Program: # Main class from where the program will run once called upon
     def __init__(self): # Setting the attributes of the class 
@@ -21,13 +20,15 @@ class Program: # Main class from where the program will run once called upon
          pygame.display.set_caption("Maze Craze") #Naming the window
          pygame.display.set_icon(logo) # Adding a custom maze image for the window
          self.clock = pygame.time.Clock() # Set a tick rate which will be used to maintain fps
+         sound = Sound() # Play the background music by default
+         sound.play_music()
          
          self.GameStateManager = GameStateManager("menuMain") # Set the default program state to menuMain
          
          # Initiating all the different menus and stages of the program so that they can be called upon later
-         self.menuMain = Menu(self.window, self.GameStateManager, width, height, font, clickSFX)
-         self.menuSettings = Settings(self.window, self.GameStateManager, width, height, font, clickSFX)
-         self.menuPlay = Play(self.window, self.GameStateManager, width, height, font, clickSFX)
+         self.menuMain = Menu(self.window, self.GameStateManager, width, height, font, sound)
+         self.menuSettings = Settings(self.window, self.GameStateManager, width, height, font, sound)
+         self.menuPlay = Play(self.window, self.GameStateManager, width, height, font, sound)
          
     def run(self): # Called to run the program
         while True: # The game loop, once ended stops the program and keeps checking for state changes

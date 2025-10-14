@@ -42,15 +42,11 @@ class ButtonImg: # Class for creating a new button that is an image
         x = pos[0] - self.x # the x position of the mouse is converted into the coordinates of the image (0, 0 is the top left of the image)
         y = pos[1] - self.y # the y position of the mouse is converted into the coordinates of the image (0, 0 is the top left of the image)
         if 0 <= x < imgRect.width and 0 <= y < imgRect.height: # If the mouse position is within the rectangle boundary of the image
-            if self.imgMask.get_at((x, y)): # If the mouse is within the mask of the image (pixel perfect)
-                self.img = self.hoverImg # Change the image to the hover image (change of colour)
+            self.img = self.hoverImg # Change the image to the hover image (change of colour)
                 
     def img_click(self, pos):
         imgRect = self.img.get_rect(topleft = (self.x, self.y)) # Creating a rectangle which has the same width and height as the image to act as its boundaries
         x = pos[0] - self.x # the x position of the mouse is converted into the coordinates of the image (0, 0 is the top left of the image)
         y = pos[1] - self.y # the y position of the mouse is converted into the coordinates of the image (0, 0 is the top left of the image)
         if 0 <= x < imgRect.width and 0 <= y < imgRect.height: # If the mouse position is within the rectangle boundary of the image
-            if self.imgMask.get_at((x, y)): # If the mouse is within the mask of the image (pixel perfect)
-                return True # Output the button has been clicked
-            
-### REMOVE THIS LINE FOR BETTER BUTTON ###
+            return True # Output the button has been clicked
