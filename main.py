@@ -5,6 +5,8 @@ from Menus.menuMain import Menu
 from Menus.menuSettings import Settings
 from Menus.menuPlay import Play
 from Sound.audio import Sound
+from Menus.mazeGenerate import Generate
+from Menus.mazeSolve import Solve
 
 pygame.init() # Initialisation of all pygame functions so errors do not occur
 
@@ -29,13 +31,15 @@ class Program: # Main class from where the program will run once called upon
          self.menuMain = Menu(self.window, self.GameStateManager, width, height, font, sound)
          self.menuSettings = Settings(self.window, self.GameStateManager, width, height, font, sound)
          self.menuPlay = Play(self.window, self.GameStateManager, width, height, font, sound)
+         self.mazeGenerate = Generate(self.window, self.GameStateManager, width, height, font, sound)
+         self.mazeSolve = Solve(self.window, self.GameStateManager, width, height, font, sound)
          
     def run(self): # Called to run the program
         while True: # The game loop, once ended stops the program and keeps checking for state changes
             current_state = self.GameStateManager.get_state() # Check if the state of the program has changed (menu change, etc)
             
             for event in pygame.event.get(): # The event loop checks for any inputs made by the user which will be used in the program
-                if event.type == pygame.QUIT: # If the window quit button is pressed pygame and the program are terminated.
+                if event.type == pygame.QUIT: # If the window quit button is pressed pygame and the program are terminated
                     pygame.quit()
                     exit()
                 # If the user clicks the mouse button down the click function is handled in the current state file
@@ -46,6 +50,10 @@ class Program: # Main class from where the program will run once called upon
                         self.menuSettings.click(event.pos)
                     elif current_state == "menuPlay":
                         self.menuPlay.click(event.pos)
+                    elif current_state == "mazeGenerate":
+                        self.mazeGenerate.click(event.pos)
+                    elif current_state == "mazeSolve":
+                        self.mazeSolve.click()
             
             # The program will run the code of the file that correponds to the current state
             if current_state == "menuMain":
@@ -54,6 +62,10 @@ class Program: # Main class from where the program will run once called upon
                 self.menuSettings.run()
             elif current_state == "menuPlay":
                 self.menuPlay.run()
+            elif current_state == "mazeGenerate":
+                self.mazeGenerate.run()
+            elif current_state == "mazeSolve":
+                self.mazeSolve.run()
                 
             pygame.display.update() # Update the window so that any changes made are output to the user
             self.clock.tick(FPS) # Setting the tick rate to the amount of frames per second (60) for the program to check for changes
