@@ -4,11 +4,6 @@ from Objects.button import ButtonImg
 from Objects.box import draw_box
 from Tools.scale import size, pos
 
-
-pygame.mixer.init()
-
-clickSFX = pygame.mixer.Sound("SFX/clickSFX.wav")
-
 def draw_objects(window, width, height, font):
     draw_box(window, 50, 50, 100, 56.3, 15, Colours.LIGHTGREY, Colours.GREY, width, height)
     
@@ -20,13 +15,14 @@ def draw_objects(window, width, height, font):
     
     return back
 
-class Play:
-    def __init__(self, window, GameStateManager, width, height, font):
+class Generate:
+    def __init__(self, window, GameStateManager, width, height, font, sound):
         self.window = window
         self.GameStateManager = GameStateManager
         self.width = width
         self.height = height
         self.font = font
+        self.sound = sound
         
     def run(self):
         self.back_button = draw_objects(self.window, self.width, self.height, self.font)
@@ -41,5 +37,5 @@ class Play:
         
     def click(self):
         if self.clicked:
-            clickSFX.play()
-            self.GameStateManager.set_state("menuMain")
+            self.sound.play_click()
+            self.GameStateManager.set_state("menuPlay")

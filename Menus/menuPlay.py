@@ -86,9 +86,7 @@ class Play:
             self.GameStateManager.set_state("menuMain") # Switch game states to go back to the main menu
         elif self.customise_button.rect.collidepoint(pos): # If the mouse is on the button
             self.sound.play_click() # Play the click sound effect
-            print("switching states")
-            # self.GameStateManager.set_state("mazeCustomise")
+            self.GameStateManager.set_state("mazeGenerate")
         elif self.solve_button.rect.collidepoint(pos):
             self.sound.play_click() # Play the click sound effect
-            print("switching states")
-            # self.GameStateManager.set_state("mazeCustomise")
+            self.GameStateManager.set_state("mazeSolve")
