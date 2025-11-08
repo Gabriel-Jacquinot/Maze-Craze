@@ -2,7 +2,7 @@ import pygame
 import random
 
 class RDFS:
-    def __init__(self, window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y):
+    def __init__(self, window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y, mazeColour):
             self.window = window
             self.width, self.height = width, height
             self.size = size
@@ -11,11 +11,12 @@ class RDFS:
             self.visitColour = visitColour
             self.currentColour = currentColour
             self.wallColour = wallColour
-            self.cols, self.rows = int(width//size), int(height//size)
+            self.MazeColour = mazeColour
+            self.cols, self.rows = int(width//size), int(height//size) # The number of rows and columns in the maze in relation to the size
             self.walls = {"top": True, "right": True, "bottom": True, "left": True}
             
     def remove_walls(self, current, next): # Remove the walls of current cells 
-        dx, dy = current.x - next.x, current.y - next.y
+        dx, dy = current.x - next.x, current.y - next.y # Finding the position of the wall to be removed
         if dx == 1:
             current.walls['left'] = False
             next.walls['right'] = False
@@ -31,8 +32,8 @@ class RDFS:
             
         
 class Cell(RDFS):
-    def __init__(self, window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y):
-        super().__init__(window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y) # Inheriting the attributes and methods of the RDFS class
+    def __init__(self, window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y, mazeColour):
+        super().__init__(window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y, mazeColour) # Inheriting the attributes and methods of the RDFS class
         self.visited = False
         self.walls = {"top": True, "right": True, "bottom": True, "left": True}
         
@@ -78,17 +79,19 @@ class Cell(RDFS):
 
 # May make this part of the main run function
 class Grid(RDFS):
-    def __init__(self, window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y):
-        RDFS.__init__(self, window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y)
-        self.grid = [Cell(window, width, height, size, visitColour, wallColour, col, row, currentColour, maze_x, maze_y) for row in range(self.rows) for col in range(self.cols)] # Making the grid in accordance to the input size
+    def __init__(self, window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y, mazeColour):
+        RDFS.__init__(self, window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y, mazeColour)
+        self.grid = [Cell(window, width, height, size, visitColour, wallColour, col, row, currentColour, maze_x, maze_y, mazeColour) for row in range(self.rows) for col in range(self.cols)] # Making the grid in accordance to the input size
         self.current_cell = self.grid[0] # Making the top left cell the current cell (cell to start at)
         self.stack = [] # Making a stack for backtracking
 
 class MazeGenerator(Grid):
-    def __init__(self, window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y):
-        Grid.__init__(self, window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y)
+    def __init__(self, window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y, mazeColour):
+        Grid.__init__(self, window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y, mazeColour)
+        self.mazeColour = mazeColour
         
     def run(self):
+        pygame.draw.rect(self.window, self.mazeColour, (self.maze_x, self.maze_y, self.cols * self.size, self.rows * self.size))
         for cell in self.grid:
             cell.draw()
 

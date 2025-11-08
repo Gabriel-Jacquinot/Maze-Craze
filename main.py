@@ -19,7 +19,7 @@ font = pygame.font.SysFont("Calibri", int(100 / (width/ height)), True) # Font f
 class Program: # Main class from where the program will run once called upon
     def __init__(self): # Setting the attributes of the class 
          self.window = pygame.display.set_mode((width, height)) ### pygame.FULLSCREEN ### # Creating the main program window with the associated width and height and making it by default full screen.
-         pygame.display.set_caption("Maze Craze") #Naming the window
+         pygame.display.set_caption("Maze Craze") # Naming the window
          pygame.display.set_icon(logo) # Adding a custom maze image for the window
          self.clock = pygame.time.Clock() # Set a tick rate which will be used to maintain fps
          sound = Sound() # Play the background music by default
