@@ -34,27 +34,28 @@ def draw_objects(window, width, height, font, mazeSize, sizeBorderColour, themeB
     return back, gen, maze_size, theme
 
 def gen_maze(window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y, mazeColour):
-    maze = MazeGenerator(window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y, mazeColour) # Initialise the maze generator attributes and methods
-    maze.run() # Start the maze generation process
+     # Initialise the maze generator attributes and methods
+    maze = MazeGenerator(window, width, height, size, visitColour, wallColour, x, y, currentColour, maze_x, maze_y, mazeColour)
+    return maze # run one step of the maze generation proccess
 
 class Generate:
     def __init__(self, window, GameStateManager, width, height, font, sound):
         self.window = window
         self.GameStateManager = GameStateManager
         self.width, self.height = width, height
-        self.maze_w, self.maze_h = width - 35 * 2, height - 100 * 2
+        self.maze_w, self.maze_h = width - 35 * 2, height - 100 * 2 # Maze size relative to screen
         self.maze_x, self.maze_y = pos(width, height, 5, 32.2, 35, 100) # Where the maze is positioned
         self.font = font
         self.sound = sound
-        self.size = 40
-        self.x, self.y = 0, 0
+        self.size = 40 # The default size of each cell
+        self.x, self.y = 0, 0 # Starting coordinates
         self.sizeBorderColour = Colours.GREEN
         self.themeBorderColour = Colours.GREY
         self.visitColour = Colours.LIGHTGREY
         self.wallColour = Colours.GREY
         self.currentColour = Colours.BLUE
-        self.mazeSize = "Small" 
-        self.generate = False
+        self.mazeSize = "Small" # Default maze size
+        self.generate = False 
         self.maze_generated = False
         self.maze = None
         self.theme = "Original"
@@ -79,10 +80,11 @@ class Generate:
         
         self.clicked = self.back_button.img_click(pos)
         
-        if self.maze_generated and self.maze:
+        if self.maze_generated and self.maze: # If a maze has been generated
             self.maze.run() # Keep drawing the maze that has already been generated
-        elif self.generate:
-            self.maze = MazeGenerator(self.window, self.maze_w, self.maze_h, self.size, self.visitColour, self.wallColour, self.x, self.y, self.currentColour, self.maze_x, self.maze_y, self.mazeColour)
+        elif self.generate: # If a maze needs to be generated
+            # Create a new maze
+            self.maze = gen_maze(self.window, self.maze_w, self.maze_h, self.size, self.visitColour, self.wallColour, self.x, self.y, self.currentColour, self.maze_x, self.maze_y, self.mazeColour)
             self.maze.run()
             self.maze_generated = True # The maze has now been generated
             self.generate = False # No longer generate a new maze
@@ -94,7 +96,7 @@ class Generate:
             self.GameStateManager.set_state("menuPlay")
         elif self.gen_button.rect.collidepoint(pos):
             self.sound.play_click()
-            self.reset_maze() # Reset any previously created maze by setting all maze values to False/ None
+            self.reset_maze() # Clear any previous maze
             self.generate = True # Set the generate value to True to start the generation process
         elif self.maze_size_button.rect.collidepoint(pos):
             self.sound.play_click()
@@ -121,25 +123,29 @@ class Generate:
             if self.theme == "Original":
                 self.themeBorderColour = Colours.BLACK
                 self.theme = "Dark"
-                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.BLACK, Colours.WHITE, Colours.WHITE
+                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.GREY, Colours.WHITE, Colours.BLACK, Colours.BLUE
             elif self.theme == "Dark":
                 self.themeBorderColour = Colours.WHITE
                 self.theme = "Light"
-                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.WHITE, Colours.WHITE, Colours.BLACK, Colours.BLACK
+                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.GREY, Colours.BLACK, Colours.WHITE, Colours.BLUE
             elif self.theme == "Light":
                 self.themeBorderColour = Colours.NEONRED
                 self.theme = "Red and black"
-                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.BLACK, Colours.BLOODRED, Colours.BLOODRED
+                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.WHITE, Colours.BLOODRED, Colours.NEONBLUE
             elif self.theme == "Red and black":
                 self.themeBorderColour = Colours.NEONPINK
                 self.theme = "Neon pink"
-                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.BLACK, Colours.NEONPINK, Colours.NEONPINK
+                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.NEONBLUE, Colours.NEONPINK, Colours.NEONYELLOW
             elif self.theme == "Neon pink":
                 self.themeBorderColour = Colours.NEONBLUE
                 self.theme = "Neon blue"
-                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.BLACK, Colours.NEONBLUE, Colours.NEONYELLOW
+                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.NEONYELLOW, Colours.NEONBLUE, Colours.NEONPINK
             elif self.theme == "Neon blue":
-                self.themeBorderColour = Colours.LIGHTGREY
+                self.themeBorderColour = Colours.NEONYELLOW
+                self.theme = "Neon yellow"
+                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.NEONGREEN, Colours.NEONYELLOW, Colours.NEONBLUE
+            elif self.theme == "Neon yellow":
+                self.themeBorderColour = Colours.GREY
                 self.theme = "Inverted"
                 self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.GREY, Colours.GREY, Colours.LIGHTGREY, Colours.NEONRED
             elif self.theme == "Inverted":
@@ -149,6 +155,6 @@ class Generate:
             
     def reset_maze(self):
         # Clear the previouos maze when leaving menu or resetting
-        self.maze = None # Prevent maze from being drawn
+        self.maze = None # Remove any current maze object
         self.maze_generated = False # Prevent a maze from being generated
         self.generate = False # Stop generating a maze
