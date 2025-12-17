@@ -18,4 +18,5 @@ class Colours:
     NEONPINK = (255, 0, 179)
     NEONRED = (255, 0, 0)
     NEONYELLOW = (255, 255, 0)
+    NEONGREEN = (0, 255, 0)
     

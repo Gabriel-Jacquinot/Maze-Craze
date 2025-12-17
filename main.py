@@ -1,4 +1,5 @@
 import pygame
+import sys
 import wx
 from Tools.gameStateManager import GameStateManager
 from Menus.menuMain import Menu
@@ -12,7 +13,7 @@ pygame.init() # Initialisation of all pygame functions so errors do not occur
 
 app = wx.App(False) # Initialisation of the wx library
 width, height = 1645.714 / 1.25, 925.714 / 1.25 # int(wx.DisplaySize()[0]), int(wx.DisplaySize()[1]) # Taking the native resolution of the users computer # The default width and height of the window which can be changed in the settings
-FPS = 60 # Constant value for the fps so that it never changes
+FPS = 120 # Constant value for the fps so that it never changes
 logo = pygame.image.load("Images/logo.png") # loading the logo image from the images folder
 font = pygame.font.SysFont("Calibri", int(100 / (width/ height)), True) # Font for text and buttons
 
@@ -41,7 +42,7 @@ class Program: # Main class from where the program will run once called upon
             for event in pygame.event.get(): # The event loop checks for any inputs made by the user which will be used in the program
                 if event.type == pygame.QUIT: # If the window quit button is pressed pygame and the program are terminated
                     pygame.quit()
-                    exit()
+                    sys.exit()
                 # If the user clicks the mouse button down the click function is handled in the current state file
                 elif event.type == pygame.MOUSEBUTTONDOWN: 
                     if current_state == "menuMain":
@@ -54,6 +55,10 @@ class Program: # Main class from where the program will run once called upon
                         self.mazeGenerate.click(event.pos)
                     elif current_state == "mazeSolve":
                         self.mazeSolve.click()
+                        
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_F11:
+                        pygame.display.toggle_fullscreen()
             
             # The program will run the code of the file that correponds to the current state
             if current_state == "menuMain":

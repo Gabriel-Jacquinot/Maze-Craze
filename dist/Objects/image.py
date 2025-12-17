@@ -1,0 +1,10 @@
+import pygame
+
+class Image:
+    def __init__(self, img, x, y, width, height):
+        self.img = pygame.transform.smoothscale(pygame.image.load(f"Images/{img}").convert_alpha(), (width, height)) # Import the image and set its size
+        self.x = x
+        self.y = y
+
+    def draw_image(self, window):
+        window.blit(self.img, (self.x, self.y)) # Blit the image to the screen and place it in the specified position
