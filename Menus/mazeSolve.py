@@ -10,8 +10,6 @@ def draw_objects(window, width, height, font):
     back_w, back_h = size(width, height, 10, 10)
     back_x, back_y = pos(width, height, 8, 13, back_w, back_h)
     back = ButtonImg("back1.png", back_x, back_y, "back2.png",  back_w, back_h)
-
-    back.draw_image(window, width, height)
     
     return back
 

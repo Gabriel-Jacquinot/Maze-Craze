@@ -25,11 +25,6 @@ def draw_objects(window, width, height, font, mazeSize, sizeBorderColour, themeB
     theme_w, theme_h = size(width, height, 17, 6)
     theme_x, theme_y = pos(width, height, 51, 15, theme_w, theme_h)
     theme = Button(font, " Theme", Colours.BLUE, "white", theme_x, theme_y, theme_w, theme_h, (themeBorderColour), Colours.GREY, 0)
-
-    back.draw_image(window, width, height)
-    gen.draw_button(window)
-    maze_size.draw_button(window)
-    theme.draw_button(window)
     
     return back, gen, maze_size, theme
 

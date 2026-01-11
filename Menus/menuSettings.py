@@ -3,10 +3,11 @@ from Tools.colours import Colours
 from Objects.button import Button, ButtonImg
 from Objects.box import draw_box
 from Tools.scale import size, pos
+from Objects.text import draw_text
 # from Objects.slider import Slider
 # from Objects.text import draw_text
 
-def draw_objects(window, width, height, font):
+def draw_objects(window, width, height, font, sfxButtonBgColour, musicButtonBgColour, sfxText, musicText):
     draw_box(window, 50, 50, 100, 56.3, 15, Colours.LIGHTGREY, Colours.GREY, width, height)
     
     # Button image, image file name, button x and y position, hover image file name, button width and height
@@ -22,21 +23,16 @@ def draw_objects(window, width, height, font):
     # Position, window width and height, object x and y position, scaled object width and height
     sound_w, sound_h = size(width, height, 25, 5.5)
     sound_x, sound_y = pos(width, height, 50, 20, sound_w, sound_h)
-    sound = Button(font, "Sound Effects", Colours.BLUE, "white", sound_x, sound_y , sound_w, sound_h, Colours.GREY, Colours.GREY, 0)
+    sound = Button(font, "Sound Effects", sfxButtonBgColour, "white", sound_x, sound_y , sound_w, sound_h, Colours.GREY, Colours.GREY, 0)
     
     music_w, music_h = size(width, height, 25, 5.5)
     music_x, music_y = pos(width, height, 50, 32, music_w, music_h)
-    music = Button(font, "Menu Music", Colours.BLUE, "white", music_x, music_y , music_w, music_h, Colours.GREY, Colours.GREY, 0)
+    music = Button(font, "Menu Music", musicButtonBgColour, "white", music_x, music_y , music_w, music_h, Colours.GREY, Colours.GREY, 0)
     
     # SFX_w, SFX_h = size(width, height, 20, 5)
     # SFX_x, SFX_y = pos(width, height, 50, 27, SFX_w, SFX_h)
     # volumeSFX = Slider(SFX_x, SFX_y, SFX_w, SFX_h, Colours.BLUE, Colours.GREY, 0, 100)
     # draw_text(window, str(volumeSFX), Colours.GREY, font, 20, 25, width, height)
-
-    # Make the buttons and images by drawing them to the window
-    back.draw_image(window, width, height)
-    sound.draw_button(window)
-    music.draw_button(window)
     
     # volumeSFXSlider = volumeSFX.draw_slider(window)
     
@@ -52,10 +48,14 @@ class Settings:
         self.height = height
         self.font = font
         self.sound = sound
+        self.sfxButtonBgColour = Colours.BLUE
+        self.musicButtonBgColour = Colours.BLUE
+        self.sfxText = "On"
+        self.musicText = "On"
         
     def run(self): # Handle any changes within the menu
         # Draw all of the objects to establish the main menu, including the buttons which are taken as variables
-        self.back_button, self.sound_button, self.music_button = draw_objects(self.window, self.width, self.height, self.font)
+        self.back_button, self.sound_button, self.music_button = draw_objects(self.window, self.width, self.height, self.font, self.sfxButtonBgColour, self.musicButtonBgColour, self.sfxText, self.musicText)
         
         pos = pygame.mouse.get_pos() # Getting the mouse position
 
@@ -69,7 +69,11 @@ class Settings:
         self.sound_button.draw_button(self.window)
         self.music_button.draw_button(self.window)
         
-        self.clicked = self.back_button.img_click(pos) # Define the back button click function for later use 
+        self.clicked = self.back_button.img_click(pos) # Define the back button click function for later use
+        
+        # Must draw text after back button as it refreshes page with draw_box
+        draw_text(self.window, f"{self.sfxText}", Colours.GREY, self.font, 66.5, 20.2, self.width, self.height)
+        draw_text(self.window, f"{self.musicText}", Colours.GREY, self.font, 66.5, 32.2, self.width, self.height)
         
     def click(self, pos):
         if self.clicked: # If the back button click function returns true
@@ -78,7 +82,20 @@ class Settings:
         elif self.sound_button.rect.collidepoint(pos): # If the mouse is on the button
             self.sound.play_click() # Play the click sound effect
             self.sound.toggle_click() # Turn the sound effects on or off
+            if self.sfxButtonBgColour == Colours.BLUE:
+                self.sfxButtonBgColour = Colours.GREY
+                self.sfxText = "Off"
+            else:
+                self.sfxButtonBgColour = Colours.BLUE
+                self.sfxText = "On"
+                
             
         elif self.music_button.rect.collidepoint(pos):
             self.sound.play_click() # Play the click sound effect
             self.sound.toggle_music() # Turn the music on or off
+            if self.musicButtonBgColour == Colours.BLUE:
+                self.musicButtonBgColour = Colours.GREY
+                self.musicText = "Off"
+            else:
+                self.musicButtonBgColour = Colours.BLUE
+                self.musicText = "On"

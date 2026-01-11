@@ -37,14 +37,6 @@ def draw_objects(window, width, height, font):
     solveImg_x, solveImg_y = pos(width, height, 65, 50, solveImg_w, solveImg_h)
     solveImg = Image("maze.png", solveImg_x, solveImg_y, solveImg_w, solveImg_h)
 
-    # Make the buttons by drawing them to the window
-    back.draw_image(window, width, height)
-    customise.draw_button(window)
-    solve.draw_button(window)
-    
-    # Make the images by drawing them to the window
-    mazeImg.draw_image(window)
-    solveImg.draw_image(window)
     
     return back, customise, solve, mazeImg, solveImg # Return all of the buttons so that they can be interacted with later
 

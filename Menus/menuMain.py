@@ -36,11 +36,6 @@ def draw_objects(window, width, height, font):
     menuImg_w, menuImg_h = size(width, height, 50, 50)
     menuImg_x, menuImg_y = pos(width, height, 70, 50, menuImg_w, menuImg_h)
     menuImg = Image("logo.png", menuImg_x, menuImg_y, menuImg_w, menuImg_h)
-
-    # Make the buttons by drawing them to the window
-    play.draw_button(window) 
-    settings.draw_button(window)
-    quit.draw_button(window)
     
     menuImg.draw_image(window) # Blit the image to the window
     

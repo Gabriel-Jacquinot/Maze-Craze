@@ -7,7 +7,7 @@ from Menus.menuSettings import Settings
 from Menus.menuPlay import Play
 from Sound.audio import Sound
 from Menus.mazeGenerate import Generate
-from Menus.mazeSolve import Solve
+from Menus.mazeSolve import Solve # LIOGHTER COLOUR OF GREY FOR BUTTON
 
 pygame.init() # Initialisation of all pygame functions so errors do not occur
 
