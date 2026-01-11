@@ -123,25 +123,29 @@ class Generate:
             if self.theme == "Original":
                 self.themeBorderColour = Colours.BLACK
                 self.theme = "Dark"
-                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.BLACK, Colours.WHITE, Colours.WHITE
+                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.GREY, Colours.WHITE, Colours.BLACK, Colours.BLUE
             elif self.theme == "Dark":
                 self.themeBorderColour = Colours.WHITE
                 self.theme = "Light"
-                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.WHITE, Colours.WHITE, Colours.BLACK, Colours.BLACK
+                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.GREY, Colours.BLACK, Colours.WHITE, Colours.BLUE
             elif self.theme == "Light":
                 self.themeBorderColour = Colours.NEONRED
                 self.theme = "Red and black"
-                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.BLACK, Colours.BLOODRED, Colours.BLOODRED
+                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.WHITE, Colours.BLOODRED, Colours.NEONBLUE
             elif self.theme == "Red and black":
                 self.themeBorderColour = Colours.NEONPINK
                 self.theme = "Neon pink"
-                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.BLUE, Colours.NEONPINK, Colours.NEONPINK
+                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.NEONBLUE, Colours.NEONPINK, Colours.NEONYELLOW
             elif self.theme == "Neon pink":
                 self.themeBorderColour = Colours.NEONBLUE
                 self.theme = "Neon blue"
-                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.BLACK, Colours.NEONBLUE, Colours.NEONYELLOW
+                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.NEONYELLOW, Colours.NEONBLUE, Colours.NEONPINK
             elif self.theme == "Neon blue":
-                self.themeBorderColour = Colours.LIGHTGREY
+                self.themeBorderColour = Colours.NEONYELLOW
+                self.theme = "Neon yellow"
+                self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.BLACK, Colours.NEONGREEN, Colours.NEONYELLOW, Colours.NEONBLUE
+            elif self.theme == "Neon yellow":
+                self.themeBorderColour = Colours.GREY
                 self.theme = "Inverted"
                 self.mazeColour, self.visitColour, self.wallColour, self.currentColour = Colours.GREY, Colours.GREY, Colours.LIGHTGREY, Colours.NEONRED
             elif self.theme == "Inverted":

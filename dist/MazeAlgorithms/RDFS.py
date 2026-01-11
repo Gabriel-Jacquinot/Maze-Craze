@@ -57,7 +57,7 @@ class Cell(RDFS):
             
     def draw_current_cell(self):
         x, y = self.maze_x + self.x * self.size, self.maze_y + self.y * self.size # Find the the current cell x and y coordinates relative to the maze size
-        pygame.draw.rect(self.window, self.currentColour, (x + 3, y + 3, self.size - 4, self.size - 4)) # For drawing the leading cell
+        pygame.draw.rect(self.window, self.currentColour, (x + 2, y + 2, self.size - 2, self.size - 2)) # For drawing the leading cell
         
     def find_index(self, x, y): # Convert 2D grid coordinates into a 1D index (for one value each time)
         return x + (y * self.cols) # Calculate the correct position by adding how far in row to how many cells in all full rows above
