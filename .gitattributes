@@ -1,0 +1,10 @@
+# Ignore build artifacts
+dist/** linguist-vendored
+build/** linguist-vendored
+*.exe linguist-vendored
+
+# Ignore cache files
+__pycache__/** linguist-vendored
+
+# Treat Python correctly
+*.py linguist-language=Python
