@@ -7,13 +7,13 @@ from Menus.menuSettings import Settings
 from Menus.menuPlay import Play
 from Sound.audio import Sound
 from Menus.mazeGenerate import Generate
-from Menus.mazeSolve import Solve # LIOGHTER COLOUR OF GREY FOR BUTTON
+from Menus.mazeSolve import Solve
+from Tools.attributes import FPS
 
 pygame.init() # Initialisation of all pygame functions so errors do not occur
 
 app = wx.App(False) # Initialisation of the wx library
 width, height = 1645.714 / 1.25, 925.714 / 1.25 # int(wx.DisplaySize()[0]), int(wx.DisplaySize()[1]) # Taking the native resolution of the users computer # The default width and height of the window which can be changed in the settings
-FPS = 120 # Constant value for the fps so that it never changes
 logo = pygame.image.load("Images/logo.png") # loading the logo image from the images folder
 font = pygame.font.SysFont("Calibri", int(100 / (width/ height)), True) # Font for text and buttons
 
@@ -26,13 +26,14 @@ class Program: # Main class from where the program will run once called upon
          sound = Sound() # Play the background music by default
          sound.play_music()
          
+         self.fps = FPS(60)
          self.GameStateManager = GameStateManager("menuMain") # Set the default program state to menuMain
          
          # Initiating all the different menus and stages of the program so that they can be called upon later
          self.menuMain = Menu(self.window, self.GameStateManager, width, height, font, sound)
          self.menuSettings = Settings(self.window, self.GameStateManager, width, height, font, sound)
          self.menuPlay = Play(self.window, self.GameStateManager, width, height, font, sound)
-         self.mazeGenerate = Generate(self.window, self.GameStateManager, width, height, font, sound)
+         self.mazeGenerate = Generate(self.window, self.GameStateManager, self.fps, width, height, font, sound)
          self.mazeSolve = Solve(self.window, self.GameStateManager, width, height, font, sound)
          
     def run(self): # Called to run the program
@@ -73,7 +74,7 @@ class Program: # Main class from where the program will run once called upon
                 self.mazeSolve.run()
                 
             pygame.display.update() # Update the window so that any changes made are output to the user
-            self.clock.tick(FPS) # Setting the tick rate to the amount of frames per second (60) for the program to check for changes
+            self.clock.tick(self.fps.current_fps()) # Allows for the fps to change
     
 if __name__ == "__main__": # If the main.py file has been run then the Program is run. To prevent unnecessary errors
     program = Program() # Initialise the program

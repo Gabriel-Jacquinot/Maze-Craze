@@ -29,7 +29,7 @@ class Solve:
 
         self.back_button.img_hover(pos)
         
-        self.back_button.draw_image(self.window, self.width, self.height)
+        self.back_button.draw_image(self.window)
         
         self.clicked = self.back_button.img_click(pos)
         

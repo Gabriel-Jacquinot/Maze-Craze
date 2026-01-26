@@ -136,7 +136,7 @@ while True:
                 if event.key == pygame.K_RETURN:
                     paused = not paused 
     
-    #[cell.draw() for cell in grid_cells]
+    [cell.draw() for cell in grid_cells]
     current_cell.visited = True
     current_cell.draw_current_cell()
 

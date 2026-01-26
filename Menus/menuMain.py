@@ -6,6 +6,7 @@ from Tools.scale import pos, size
 from Objects.box import draw_box
 from Objects.text import draw_text
 import time
+import sys
 
 def draw_objects(window, width, height, font):
     draw_box(window, 50, 50, 100, 56.3, 15, Colours.LIGHTGREY, Colours.GREY, width, height) # Draw the background as a box so that a border can be added
@@ -71,7 +72,7 @@ class Menu:
             self.sound.play_click() # Play the click sound effect
             time.sleep(0.22) # Allow time for the sound effect to play before quitting
             pygame.quit() # Delete all pygame objects
-            exit() # Exit the program
+            sys.exit() # Exit the program
         elif self.settings_button.rect.collidepoint(pos): # If the mouse is on the button
             self.sound.play_click() # Play the click sound effect
             self.GameStateManager.set_state("menuSettings") # Change game state to the settings menu

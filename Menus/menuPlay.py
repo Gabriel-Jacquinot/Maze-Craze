@@ -61,7 +61,7 @@ class Play:
         self.solve_button.button_hover(pos)
         
         # Redrawing the buttons, also to update when it is hovered over
-        self.back_button.draw_image(self.window, self.width, self.height)
+        self.back_button.draw_image(self.window)
         self.customise_button.draw_button(self.window)
         self.solve_button.draw_button(self.window)
         

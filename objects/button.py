@@ -33,8 +33,7 @@ class ButtonImg: # Class for creating a new button that is an image
         self.x = x
         self.y = y
     
-    def draw_image(self, window, width, height):
-        draw_box(window, 50, 50, 100, 56.3, 15, Colours.LIGHTGREY, Colours.GREY, width, height)
+    def draw_image(self, window):
         window.blit(self.img, (self.x, self.y))
         
     def img_hover(self, pos): # Creating a rectangle which has the same width and height as the image to act as its boundaries
