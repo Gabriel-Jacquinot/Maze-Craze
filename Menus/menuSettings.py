@@ -86,8 +86,8 @@ class Settings:
         draw_text(self.window, "Settings", Colours.GREY, self.font, 50.5, 14.2, self.width, self.height)
         draw_text(self.window, f"{self.sfxText}", Colours.GREY, self.font, 40.5, 30.2, self.width, self.height)
         draw_text(self.window, f"{self.musicText}", Colours.GREY, self.font, 40.5, 42.2, self.width, self.height)
-        
-        
+        draw_text(self.window, "Controls", Colours.GREY, self.font, 50, 65, self.width, self.height)
+        draw_text(self.window, "WASD or arrow keys : Used for when solving mazes", Colours.BLUE, self.font, 50, 80, self.width, self.height)
         
     def click(self, pos):
         if self.clicked: # If the back button click function returns true
@@ -101,8 +101,7 @@ class Settings:
                 self.sfxText = "Off" # Change text to off
             else:
                 self.sfxButtonBgColour = Colours.BLUE # Change back to blue
-                self.sfxText = "On" # Change text back to On
-                
+                self.sfxText = "On" # Change text back to On   
             
         elif self.music_button.rect.collidepoint(pos):
             self.sound.play_click() # Play the click sound effect

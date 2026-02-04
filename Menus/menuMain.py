@@ -28,8 +28,12 @@ def draw_objects(window, width, height, font):
     settings_x, plasettings_y = pos(width, height, 18.3, 50, settings_w, settings_h)
     settings = Button(font, "Settings", Colours.BLUE, "white", settings_x, plasettings_y, settings_w, settings_h, Colours.GREY, Colours.GREY, 0)
     
+    info_w, info_h = size(width, height, 8.75, 5.5)
+    info_x, info_y = pos(width, height, 14.6, 62, info_w, info_h)
+    info = Button(font, "Info", Colours.BLUE, "white", info_x, info_y, info_w, info_h, Colours.GREY, Colours.GREY, 0)
+    
     quit_w, quit_h = size(width, height, 9.5, 5.5)
-    quit_x, quit_y = pos(width, height, 15, 62, quit_w, quit_h)
+    quit_x, quit_y = pos(width, height, 15, 74, quit_w, quit_h)
     quit = Button(font, "Quit", Colours.BLUE, "white", quit_x, quit_y, quit_w, quit_h, Colours.GREY, Colours.GREY, 0)
     
     # Initiating all properties of the image for the main menu
@@ -40,7 +44,7 @@ def draw_objects(window, width, height, font):
     
     menuImg.draw_image(window) # Blit the image to the window
     
-    return play, settings, quit # Return all of the buttons so that they can be interacted with later
+    return play, settings, quit, info # Return all of the buttons so that they can be interacted with later
 
 class Menu:
     def __init__(self, window, GameStateManager, width, height, font, sound): # All parameters needed for establishing the main menu
@@ -53,7 +57,7 @@ class Menu:
         
     def run(self): # Handle any changes within the menu 
         # Draw all of the objects to establish the main menu, including the buttons which are taken as variables
-        self.play_button, self.settings_button, self.quit_button = draw_objects(self.window, self.width, self.height, self.font)
+        self.play_button, self.settings_button, self.quit_button, self.info_button = draw_objects(self.window, self.width, self.height, self.font)
         
         pos = pygame.mouse.get_pos() # Get mouse position
 
@@ -61,11 +65,13 @@ class Menu:
         self.play_button.button_hover(pos)
         self.settings_button.button_hover(pos)
         self.quit_button.button_hover(pos)
+        self.info_button.button_hover(pos)
 
         # Redraw buttons with hover effect
         self.play_button.draw_button(self.window)
         self.settings_button.draw_button(self.window)
         self.quit_button.draw_button(self.window)
+        self.info_button.draw_button(self.window)
         
     def click(self, pos): # Every time mouse button down is input
         if self.quit_button.rect.collidepoint(pos): # If the mouse is on the button
@@ -79,3 +85,6 @@ class Menu:
         elif self.play_button.rect.collidepoint(pos): # If the mouse is on the button
             self.sound.play_click() # Play the click sound effect
             self.GameStateManager.set_state("menuPlay") # Change game state to the settings menu
+        elif self.info_button.rect.collidepoint(pos):
+            self.sound.play_click()
+            self.GameStateManager.set_state("menuInfo")

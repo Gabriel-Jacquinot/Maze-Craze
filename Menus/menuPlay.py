@@ -70,7 +70,6 @@ class Play:
         self.solveImg.draw_image(self.window)
         
         self.clicked = self.back_button.img_click(pos) # Define the back button click funtion for later use 
-
         
     def click(self, pos):
         if self.clicked: # If the back button click function returns true
