@@ -115,7 +115,7 @@ class Cell(RDFS):
         if self.path['left']:
             pygame.draw.line(self.window, self.solutionColour, (x, y + (self.size1 / 2)), (x + (self.size1 / 2), y + (self.size1 / 2)), 5)
         if self.path['bottom']:
-            pygame.draw.line(self.window, self.solutionColour, (x + (self.size1 / 2), y + (self.size1 / 2)), (x + (self.size1 / 2), y + self.size1), 5)
+            pygame  .draw.line(self.window, self.solutionColour, (x + (self.size1 / 2), y + (self.size1 / 2)), (x + (self.size1 / 2), y + self.size1), 5)
         if self.path['right']:
             pygame.draw.line(self.window, self.solutionColour, (x + (self.size1 / 2), y + (self.size1 / 2)), (x + self.size1, y + (self.size1 / 2)), 5)
         

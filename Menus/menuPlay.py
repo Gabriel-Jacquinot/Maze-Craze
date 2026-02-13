@@ -20,25 +20,32 @@ def draw_objects(window, width, height, font):
     # Size, window width and height, object width and height
     # Position, window width and height, object x and y position, scaled object width and height
     customise_w, customise_h = size(width, height, 20, 40)
-    customise_x, customise_y = pos(width, height, 35, 50, customise_w, customise_h)
+    customise_x, customise_y = pos(width, height, 35, 45, customise_w, customise_h)
     customise = Button(font, " Generate", Colours.BLUE, "white", customise_x, customise_y , customise_w, customise_h, Colours.GREY, Colours.GREY, 40)
     
     solve_w, solve_h = size(width, height, 20, 40)
-    solve_x, solve_y = pos(width, height, 65, 50, solve_w, solve_h)
+    solve_x, solve_y = pos(width, height, 65, 45, solve_w, solve_h)
     solve = Button(font, "    Solve", Colours.BLUE, "white", solve_x, solve_y , solve_w, solve_h, Colours.GREY, Colours.GREY, 40)
     
     # Initiating all properties of the images for the play menu
     # For the image, image file name, x and y position, width and height
     mazeImg_w, mazeImg_h = size(width, height, 19, 19)
-    mazeImg_x, mazeImg_y = pos(width, height, 35, 50, mazeImg_w, mazeImg_h)
+    mazeImg_x, mazeImg_y = pos(width, height, 35, 45, mazeImg_w, mazeImg_h)
     mazeImg = Image("solve.png", mazeImg_x, mazeImg_y, mazeImg_w, mazeImg_h)
     
     solveImg_w, solveImg_h = size(width, height, 20, 20)
-    solveImg_x, solveImg_y = pos(width, height, 65, 50, solveImg_w, solveImg_h)
+    solveImg_x, solveImg_y = pos(width, height, 65, 45, solveImg_w, solveImg_h)
     solveImg = Image("maze.png", solveImg_x, solveImg_y, solveImg_w, solveImg_h)
 
+    gen_info_w, gen_info_h = size(width, height, 19.3269, 5) # Size of the image calculated in accordance to ratios of the image resolution
+    gen_info_x, gen_info_y = pos(width, height, 35, 87, gen_info_w, gen_info_h)
+    gen_info = Image("gen_description.png", gen_info_x, gen_info_y, gen_info_w, gen_info_h)
     
-    return back, customise, solve, mazeImg, solveImg # Return all of the buttons so that they can be interacted with later
+    play_info_w, backtrack_h = size(width, height, 16.2037037037037, 5) # Size of the image calculated in accordance to ratios of the image resolution
+    play_info_x, backtrack_y = pos(width, height, 65, 87, play_info_w, backtrack_h)
+    play_info = Image("play_description.png", play_info_x, backtrack_y, play_info_w, backtrack_h)
+    
+    return back, customise, solve, mazeImg, solveImg, gen_info, play_info # Return all of the buttons so that they can be interacted with later
 
 class Play:
     def __init__(self, window, GameStateManager, width, height, font, sound): # All parameters needed for establishing the play menu
@@ -51,9 +58,12 @@ class Play:
         
     def run(self): # Handle any changes within the menu
         # Draw all of the objects to establish the main menu, including the buttons which are taken as variables
-        self.back_button, self.customise_button, self.solve_button, self.mazeImg, self.solveImg = draw_objects(self.window, self.width, self.height, self.font)
+        self.back_button, self.customise_button, self.solve_button, self.mazeImg, self.solveImg, gen_infoImg, play_infoImg = draw_objects(self.window, self.width, self.height, self.font)
         
         pos = pygame.mouse.get_pos() # Getting the mouse postition
+
+        gen_infoImg.draw_image(self.window) # Generate button description
+        play_infoImg.draw_image(self.window) # Play button description
 
         # Calling all of the hover functions for the buttons to check for updates
         self.back_button.img_hover(pos)

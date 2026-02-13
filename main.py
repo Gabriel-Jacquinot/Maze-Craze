@@ -18,7 +18,7 @@ width, height = 1645.714 / 1.25, 925.714 / 1.25 # int(wx.DisplaySize()[0]), int(
 logo = pygame.image.load("Images/logo.png") # loading the logo image from the images folder
 font = pygame.font.SysFont("Calibri", int(100 / (width/ height)), True) # Font for text and buttons
 
-# pygame.key.set_repeat(100) BIG CHANGE
+pygame.key.set_repeat(100) # Allows repeated inputs every 100 miliseconds (holding down keys)
 
 class Program: # Main class from where the program w5ill run once called upon
     def __init__(self): # Setting the at5tributes of the class 
@@ -101,6 +101,6 @@ class Program: # Main class from where the program w5ill run once called upon
             pygame.display.update() # Update the window so that any changes made are output to the user
             self.clock.tick(self.fps.current_fps()) # Allows for the fps to change
     
-if __name__ == "__main__": # If the main.py file has been run then the Program is run. To prevent unnecessary errors
+if __name__ == "__main__": # If the main.py file h5as been run then the Program is run. To prevent unnecessary errors
     program = Program() # Initialise the program
     program.run() # Run the program
